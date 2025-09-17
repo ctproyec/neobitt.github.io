@@ -107,8 +107,9 @@
         .progress-bar {
             height: 100%;
             width: 0;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            background: linear-gradient(90deg, var(--golden-accent), var(--golden-main));
             transition: width 0.3s;
+            box-shadow: 0 0 10px var(--golden-main), 0 0 15px var(--golden-accent);
         }
         .loader-messages {
             height: 120px;
@@ -551,6 +552,142 @@
             from { transform: translateX(0); opacity: 1; }
             to { transform: translateX(100%); opacity: 0; }
         }
+        .bubble {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--inclusive-purple);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--golden-main);
+            font-size: 32px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            box-shadow: 0 0 15px var(--golden-accent), 0 0 20px var(--inclusive-purple);
+            transition: transform 0.2s ease, background 0.3s ease;
+            z-index: 1000;
+        }
+        .bubble:hover {
+            transform: scale(1.1);
+            background: var(--golden-accent);
+            box-shadow: 0 0 20px var(--golden-main), 0 0 25px var(--inclusive-purple);
+        }
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 9998;
+        }
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .menu {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid var(--golden-main);
+            box-shadow: 0 0 20px var(--golden-accent), 0 0 30px var(--inclusive-purple);
+            text-align: center;
+            min-width: 300px;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            color: var(--golden-main);
+            font-family: 'Courier New', monospace;
+        }
+        .menu.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        .menu h2 {
+            margin: 0 0 15px;
+            font-size: 1.8rem;
+            color: var(--golden-main);
+            text-shadow: 0 0 10px var(--golden-accent);
+        }
+        .menu p {
+            color: var(--golden-accent);
+            font-size: 1rem;
+            text-shadow: 0 0 5px var(--golden-accent);
+        }
+        .menu button {
+            margin: 10px 5px;
+            padding: 10px 20px;
+            border: none;
+            background: var(--golden-accent);
+            color: #000;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px var(--golden-main);
+        }
+        .menu button:hover {
+            background: var(--golden-main);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--golden-accent);
+        }
+        .menu form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .menu input, .menu textarea {
+            width: 100%;
+            max-width: 250px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px solid var(--golden-main);
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--golden-main);
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+        }
+        .menu textarea {
+            height: 100px;
+            resize: none;
+        }
+        .comment-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+            border: 2px solid var(--golden-accent);
+            border-radius: 5px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .comment-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid var(--golden-accent);
+            color: var(--golden-main);
+            font-size: 0.9rem;
+        }
+        .comment-item img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 10px;
+            border: 2px solid var(--golden-main);
+        }
         @media (max-width: 768px) {
             .counter-container {
                 font-size: 1.2rem;
@@ -599,6 +736,29 @@
             .notification {
                 max-width: 250px;
                 padding: 10px;
+            }
+            .bubble {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .menu {
+                min-width: 250px;
+                padding: 20px;
+            }
+            .menu h2 {
+                font-size: 1.5rem;
+            }
+            .menu p {
+                font-size: 0.9rem;
+            }
+            .menu input, .menu textarea {
+                max-width: 200px;
+            }
+            .comment-list {
+                max-width: 250px;
             }
             footer a { font-size: 0.9rem; margin: 0 10px; }
         }
@@ -660,7 +820,6 @@
         <ul>
             <li><a href="index.html">INICIO</a></li>
             <li><a href="perfil.html">PERFIL</a></li>
-            <li><a href="comentario.html">COMENTARIO</a></li>
             <li><a href="creadores.html">CREADORES</a></li>
             <li><a href="campaña.html">CAMPAÑA</a></li>
             <li class="counter-container">
@@ -732,14 +891,137 @@
             <img src="assets/imagenes/rainbow.gif" alt="Rainbow Animation">
         </div>
     </div>
+    <div class="bubble" id="commentBubble">💬</div>
+    <div class="menu-overlay" id="overlay">
+        <div class="menu" id="menu">
+            <h2>COMENTARIOS</h2>
+            <p>Comparte tus pensamientos con la comunidad.</p>
+            <form id="commentForm">
+                <input type="text" id="commentName" placeholder="Tu nombre" required>
+                <textarea id="commentMessage" placeholder="Escribe tu comentario..." required></textarea>
+                <button type="submit">Enviar Comentario</button>
+            </form>
+            <div class="comment-list" id="commentList"></div>
+            <button onclick="toggleMenu()">Cerrar</button>
+        </div>
+    </div>
     <footer>
         <a href="terminos.html">TÉRMINOS Y CONDICIONES</a>
         <div class="version">Versión 1.13</div>
     </footer>
     <script type="module">
-import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";import{getFirestore,doc,getDoc,updateDoc,increment,collection,query,orderBy,onSnapshot}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";if("file:"===window.location.protocol)console.error("❌ Error: Los módulos ES no funcionan en file://"),alert("Error: Esta página debe ejecutarse en un servidor HTTP/HTTPS.");else{try{const a={apiKey:"AIzaSyDp7VT6HMYBgqnrYfc84Tk9kh82nCBTYtM",authDomain:"dpccrea-login.firebaseapp.com",projectId:"dpccrea-login",appId:"1:822726011803:web:6b8f3e6a9d8c7b2e8f4e5d"},b=initializeApp(a),c=getFirestore(b),d=doc(c,"visitas","contador"),e=collection(c,"comentarios"),f=document.getElementById("visitor-counter"),g=JSON.parse(localStorage.getItem("dpccrea_user"))||{},h=()=>{let a=new Audio("https://assets.codepen.io/3011180/notification-sound-1.mp3");a.volume=.3,a.play().catch(b=>console.error("❌ Error al reproducir sonido:",b))},i=(a,b)=>{let c=document.createElement("div");c.className="notification",c.style.cssText="position: fixed; top: 20px; right: 20px; background: rgba(0, 0, 0, 0.95); border: 2px solid var(--hacker-cyan); color: white; padding: 15px; border-radius: 8px; z-index: 10000; max-width: 300px; box-shadow: 0 0 20px var(--hacker-cyan), 0 0 10px var(--diversity-pink); font-family: 'Courier New', monospace; animation: notifIn 0.5s ease-out; pointer-events: auto;",c.innerHTML=`<strong style="color: var(--hacker-cyan);"><i class="fas fa-bell"></i> Nuevo comentario</strong><p style="margin: 8px 0; color: #ddd; font-size: 0.9rem;">${a}</p>`,document.body.appendChild(c);let d=document.createElement("style");d.textContent="@keyframes notifIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes notifOut{from{transform:translateX(0);opacity:1}to{transform:translateX(100%);opacity:0}}",document.head.appendChild(d),setTimeout(()=>{c.style.animation="notifOut 0.5s ease-out",setTimeout(()=>{c.parentElement&&document.body.removeChild(c)},500)},5e3)};onSnapshot(d,a=>{if(a.exists()){const b=a.data().count;f.innerHTML=`<strong>Visitas: ${new Intl.NumberFormat().format(b)}</strong>`}else f.innerHTML='<span class="counter-fallback">0</span>'},a=>{console.error("❌ Error al escuchar contador:",a),f.innerHTML='<span class="counter-fallback">[--]</span>'});const j=localStorage.getItem("dpccrea_lastVisit"),k=Date.now(),l=432e5;!j||k-parseInt(j)>l?updateDoc(d,{count:increment(1)}).then(()=>{localStorage.setItem("dpccrea_lastVisit",k.toString()),console.log("%c📈 Contador incrementado","color: #FFD700")}).catch(a=>{console.error("❌ Error al aumentar contador:",a)}):null;const m=query(e,orderBy("timestamp","desc")),n=new Set;onSnapshot(m,a=>{a.docChanges().forEach(b=>{"added"===b.type&&b.doc&&b.doc.data&&b.doc.data().name!==g.username&&b.doc.id&&!n.has(b.doc.id)&&(n.add(b.doc.id),i(`${b.doc.data().name||"Anónimo"}: "${(b.doc.data().message||"").length>50?(b.doc.data().message||"").substring(0,47)+"...":b.doc.data().message||""}"`))})},a=>console.error("❌ Error al escuchar comentarios:",a))}catch(a){console.error("❌ Error al inicializar Firebase:",a),alert("No se pudo inicializar Firebase. Verifica la configuración o la conexión.")}}
-    </script>
-    <script>
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, updateDoc, increment, collection, query, orderBy, onSnapshot, addDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+        
+        if ("file:" === window.location.protocol) {
+            console.error("❌ Error: Los módulos ES no funcionan en file://");
+            alert("Error: Esta página debe ejecutarse en un servidor HTTP/HTTPS.");
+        } else {
+            try {
+                const firebaseConfig = {
+                    apiKey: "AIzaSyDp7VT6HMYBgqnrYfc84Tk9kh82nCBTYtM",
+                    authDomain: "dpccrea-login.firebaseapp.com",
+                    projectId: "dpccrea-login",
+                    appId: "1:822726011803:web:6b8f3e6a9d8c7b2e8f4e5d"
+                };
+                const app = initializeApp(firebaseConfig);
+                const db = getFirestore(app);
+                const counterDoc = doc(db, "visitas", "contador");
+                const commentsCollection = collection(db, "comentarios");
+                const visitorCounter = document.getElementById("visitor-counter");
+                const user = JSON.parse(localStorage.getItem("dpccrea_user")) || {};
+                
+                const playNotificationSound = () => {
+                    let audio = new Audio("https://assets.codepen.io/3011180/notification-sound-1.mp3");
+                    audio.volume = 0.3;
+                    audio.play().catch(err => console.error("❌ Error al reproducir sonido:", err));
+                };
+                
+                const showNotification = (message, profilePic) => {
+                    let notification = document.createElement("div");
+                    notification.className = "notification";
+                    notification.innerHTML = `
+                        <strong><i class="fas fa-bell"></i> Nuevo comentario</strong>
+                        <p>${message}</p>
+                        ${profilePic ? `<img src="${profilePic}" alt="Perfil" style="width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 10px; border: 2px solid var(--golden-main);">` : ''}
+                    `;
+                    document.body.appendChild(notification);
+                    setTimeout(() => {
+                        notification.style.animation = "notifOut 0.5s ease-out";
+                        setTimeout(() => {
+                            if (notification.parentElement) document.body.removeChild(notification);
+                        }, 500);
+                    }, 5000);
+                };
+                
+                onSnapshot(counterDoc, (doc) => {
+                    if (doc.exists()) {
+                        const count = doc.data().count;
+                        visitorCounter.innerHTML = `<strong>Visitas: ${new Intl.NumberFormat().format(count)}</strong>`;
+                    } else {
+                        visitorCounter.innerHTML = '<span class="counter-fallback">0</span>';
+                    }
+                }, (err) => {
+                    console.error("❌ Error al escuchar contador:", err);
+                    visitorCounter.innerHTML = '<span class="counter-fallback">[--]</span>';
+                });
+                
+                const lastVisit = localStorage.getItem("dpccrea_lastVisit");
+                const now = Date.now();
+                const twelveHours = 43200000;
+                if (!lastVisit || now - parseInt(lastVisit) > twelveHours) {
+                    updateDoc(counterDoc, { count: increment(1) }).then(() => {
+                        localStorage.setItem("dpccrea_lastVisit", now.toString());
+                        console.log("%c📈 Contador incrementado", "color: #FFD700");
+                    }).catch(err => console.error("❌ Error al aumentar contador:", err));
+                }
+                
+                const commentsQuery = query(commentsCollection, orderBy("timestamp", "desc"));
+                const seenComments = new Set();
+                onSnapshot(commentsQuery, (snapshot) => {
+                    const commentList = document.getElementById("commentList");
+                    commentList.innerHTML = "";
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        if (data.name && data.message) {
+                            const commentDiv = document.createElement("div");
+                            commentDiv.className = "comment-item";
+                            const profilePic = user.profilePic || "assets/imagenes/default-profile.png";
+                            commentDiv.innerHTML = `
+                                ${profilePic ? `<img src="${profilePic}" alt="Perfil">` : ''}
+                                <strong>${data.name || "Anónimo"}:</strong> ${data.message}
+                            `;
+                            commentList.appendChild(commentDiv);
+                            if (!seenComments.has(doc.id) && data.name !== user.username) {
+                                seenComments.add(doc.id);
+                                showNotification(`${data.name || "Anónimo"}: "${data.message.length > 50 ? data.message.substring(0, 47) + "..." : data.message}"`, profilePic);
+                                playNotificationSound();
+                            }
+                        }
+                    });
+                }, (err) => console.error("❌ Error al escuchar comentarios:", err));
+                
+                document.getElementById("commentForm").addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById("commentName").value;
+                    const message = document.getElementById("commentMessage").value;
+                    if (name && message) {
+                        addDoc(commentsCollection, {
+                            name: name,
+                            message: message,
+                            timestamp: new Date()
+                        }).then(() => {
+                            document.getElementById("commentForm").reset();
+                        }).catch(err => console.error("❌ Error al guardar comentario:", err));
+                    }
+                });
+                
+            } catch (err) {
+                console.error("❌ Error al inicializar Firebase:", err);
+                alert("No se pudo inicializar Firebase. Verifica la configuración o la conexión.");
+            }
+        }
+
         const loader = document.getElementById('loader');
         const progressBar = document.getElementById('progressBar');
         const loaderMessages = document.getElementById('loaderMessages');
@@ -749,6 +1031,10 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-ap
         const campaignPopup = document.getElementById('campaignPopup');
         const campaignButton = document.getElementById('campaignButton');
         const mainContent = document.getElementById('mainContent');
+        const commentBubble = document.getElementById('commentBubble');
+        const menu = document.getElementById('menu');
+        const overlay = document.getElementById('overlay');
+        
         const systemMessages = [
             {text: "> Conectando con servidor DPCCREA...", type: ""},
             {text: "[OK] Conexión establecida", type: "success"},
@@ -761,8 +1047,10 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-ap
             {text: "> Cargando recursos de diversidad...", type: ""},
             {text: "[OK] Sistema listo para usar", type: "success"}
         ];
+        
         let progress = 0;
         let messageIndex = 0;
+        
         function centerPopups() {
             updatePopup.style.top = '50%';
             updatePopup.style.left = '50%';
@@ -770,7 +1058,11 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-ap
             campaignPopup.style.top = '50%';
             campaignPopup.style.left = '50%';
             campaignPopup.style.transform = 'translate(-50%, -50%)';
+            menu.style.top = '50%';
+            menu.style.left = '50%';
+            menu.style.transform = menu.classList.contains('active') ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0.7)';
         }
+        
         function updateProgress() {
             if (progress < 100) {
                 progress += Math.random() * 10;
@@ -803,23 +1095,27 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-ap
                 }, 500);
             }
         }
+        
         function getStatusText(progress) {
             if (progress < 30) return "Inicializando núcleo del sistema...";
             if (progress < 60) return "Cargando recursos de diversidad...";
             if (progress < 90) return "Optimizando rendimiento...";
             return "Finalizando procesos...";
         }
+        
         updateButton.addEventListener('click', () => {
             if (!updateButton.disabled) {
                 updatePopup.classList.remove('active');
                 mainContent.classList.remove('blur');
             }
         });
+        
         campaignButton.addEventListener('click', () => {
             campaignPopup.classList.remove('active');
             mainContent.classList.remove('blur');
             window.location.href = 'campaña.html';
         });
+        
         document.addEventListener('keydown', (event) => {
             if (event.key === 'ñ' || event.key === 'Ñ') {
                 campaignPopup.classList.toggle('active');
@@ -827,6 +1123,24 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-ap
                 centerPopups();
             }
         });
+        
+        commentBubble.addEventListener('click', () => {
+            overlay.classList.add('active');
+            menu.classList.add('active');
+            mainContent.classList.add('blur');
+            centerPopups();
+        });
+        
+        function toggleMenu() {
+            overlay.classList.remove('active');
+            menu.classList.remove('active');
+            mainContent.classList.remove('blur');
+        }
+        
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) toggleMenu();
+        });
+        
         window.addEventListener('resize', () => {
             centerPopups();
             matrixCanvas.width = window.innerWidth;
@@ -834,7 +1148,9 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-ap
             particlesCanvas.width = window.innerWidth;
             particlesCanvas.height = window.innerHeight;
         });
+        
         setTimeout(updateProgress, 2000);
+        
         const matrixCanvas = document.getElementById('matrixCanvas');
         const matrixCtx = matrixCanvas.getContext('2d');
         matrixCanvas.width = window.innerWidth;
@@ -846,6 +1162,7 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-ap
         for (let i = 0; i < columns; i++) {
             drops[i] = Math.floor(Math.random() * matrixCanvas.height);
         }
+        
         function drawMatrix() {
             matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.06)';
             matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
@@ -860,13 +1177,16 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-ap
                 drops[i]++;
             }
         }
+        
         setInterval(drawMatrix, 40);
+        
         const particlesCanvas = document.getElementById('particlesCanvas');
         const particlesCtx = particlesCanvas.getContext('2d');
         particlesCanvas.width = window.innerWidth;
         particlesCanvas.height = window.innerHeight;
         const particlesArray = [];
         const particleCount = 50;
+        
         class Particle {
             constructor() {
                 this.x = Math.random() * particlesCanvas.width;
@@ -889,11 +1209,13 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-ap
                 particlesCtx.fill();
             }
         }
+        
         function initParticles() {
             for (let i = 0; i < particleCount; i++) {
                 particlesArray.push(new Particle());
             }
         }
+        
         function animateParticles() {
             particlesCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             particlesCtx.fillRect(0, 0, particlesCanvas.width, particlesCanvas.height);
@@ -908,10 +1230,13 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-ap
             }
             requestAnimationFrame(animateParticles);
         }
+        
         initParticles();
         animateParticles();
+        
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
+        
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
